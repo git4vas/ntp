@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  ntp:
+    build: .
+    image: cturra/ntp:latest
+    container_name: ntp
+    restart: always
+    ports:
+      - 123:123/udp
+    read_only: true
+    tmpfs:
+      - /etc/chrony:rw,mode=1750
+      - /run/chrony:rw,mode=1750
+      - /var/lib/chrony:rw,mode=1750
+    environment:
+      - NTP_SERVERS=time.cloudflare.com
+      - LOG_LEVEL=0
+
